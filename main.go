@@ -32,7 +32,9 @@ func PostRounds(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  responseInterface := PostRoundResponse{"1"}
+  saveRound(PostRoundRequest)
+
+  responseInterface := PostRoundResponse{"1", postRoundRequest.Holes}
   responseData, encodeErr := json.Marshal(responseInterface)
   if (encodeErr != nil) {
     http.Error(w, encodeErr.Error(), http.StatusInternalServerError)
@@ -42,8 +44,13 @@ func PostRounds(w http.ResponseWriter, r *http.Request) {
   w.Write(responseData)
 }
 
+func saveRound(req PostRoundRequest) {
+
+}
+
 type PostRoundResponse struct {
   ID string
+  Holes []Hole
 }
 
 type PostRoundRequest struct {
